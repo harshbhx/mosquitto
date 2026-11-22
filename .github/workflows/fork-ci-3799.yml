@@ -11,9 +11,9 @@ jobs:
     steps:
     - run: |
         sudo apt-get update
-        sudo apt-get install -y libc-ares-dev libcjson-dev libcunit1-dev libssl-dev libwrap0-dev ninja-build pkgconf python3-all python3-paho-mqtt python3-psutil uthash-dev xsltproc docbook-xsl libargon2-dev libmicrohttpd-dev libedit-dev
+        sudo apt-get install -y libc-ares-dev libcjson-dev libcunit1-dev libssl-dev libwrap0-dev ninja-build pkgconf python3-all python3-paho-mqtt python3-psutil uthash-dev xsltproc docbook-xsl libargon2-dev libmicrohttpd-dev libedit-dev libgmock-dev
     - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
-    - run: cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DWITH_DOCS=no -DWITH_TESTS=yes -S . -B build
+    - run: cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -S . -B build
     - run: cmake --build build --parallel $(nproc)
     - working-directory: build/
       run: ctest -R "10-listener-mount" --resource-spec-file ../test/resource.json --output-on-failure -V
